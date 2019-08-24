@@ -1,0 +1,5 @@
+# Display bootstrapping commands
+curl http://169.254.169.254/latest/user-data/
+
+# Display AMI, instance type etc.
+curl http://169.254.169.254/latest/meta-data/

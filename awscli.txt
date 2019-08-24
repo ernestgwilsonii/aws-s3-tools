@@ -1,0 +1,54 @@
+# REF: https://aws.amazon.com/cli/
+# Prerequisite: An admin IAM API user
+# pip install awscli
+# pip install --upgrade awscli
+aws --version
+aws configure
+
+# Examples: - REF: https://gist.github.com/apolloclark/b3f60c1f68aa972d324b
+aws iam get-user
+aws iam list-access-keys
+aws iam list-users
+aws iam list-users --no-paginate
+aws iam list-users --output text | cut -f 6
+aws iam get-account-password-policy
+aws iam list-groups
+aws iam list-policies
+aws iam list-roles
+aws s3 ls
+aws cloudtrail describe-trails
+
+# Get my AWS account number
+aws sts get-caller-identity --output text --query 'Account'
+
+
+# aws cli can have multiple "Named Profiles"
+# REF: https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html
+# REF: https://docs.aws.amazon.com/cli/latest/reference/configure/list.html
+aws configure list
+
+
+# Get a list of all regions:
+aws ssm get-parameters-by-path --path /aws/service/global-infrastructure/regions --query Parameters[].Name
+
+# Get a list of all services:
+aws ssm get-parameters-by-path --path /aws/service/global-infrastructure/services --query Parameters[].Name | sort
+
+# Get a list of regions for a given service:
+aws ssm get-parameters-by-path --path /aws/service/global-infrastructure/services/ssm/regions --query Parameters[].Value
+aws ssm get-parameters-by-path --path /aws/service/global-infrastructure/services/s3/regions --query Parameters[].Value
+aws ssm get-parameters-by-path --path /aws/service/global-infrastructure/services/lambda/regions --query Parameters[].Value
+
+# Get the regional endpoint for a given service:
+aws ssm get-parameter --name /aws/service/global-infrastructure/regions/us-west-1/services/ssm/endpoint --query Parameter.Value
+aws ssm get-parameter --name /aws/service/global-infrastructure/regions/us-west-1/services/s3/endpoint --query Parameter.Value
+aws ssm get-parameter --name /aws/service/global-infrastructure/regions/us-west-1/services/lambda/endpoint --query Parameter.Value
+
+# Get a list of all Linux AMIs
+aws ssm get-parameters-by-path --path /aws/service/ami-amazon-linux-latest --query Parameters[].Name
+
+# Get the details of a specific AMI
+aws ssm get-parameters --names /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2 --region us-west-2
+
+# Get the recommended AMI info:
+aws ssm get-parameters --names /aws/service/ecs/optimized-ami/amazon-linux/recommended

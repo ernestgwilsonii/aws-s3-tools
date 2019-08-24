@@ -1,0 +1,29 @@
+# Create an s3 bucket for shared ec2 scripts
+
+# Get the unique account number
+THIS_AWS_ACCOUNT_NUMBER=$(aws sts get-caller-identity --output text --query 'Account')
+echo $THIS_AWS_ACCOUNT_NUMBER
+
+# Set the shared s3 bucket name
+SHARED_S3_BUCKET=shared-s3-bucket-$THIS_AWS_ACCOUNT_NUMBER
+echo $SHARED_S3_BUCKET
+
+# Set the desired AWS region
+AWS_REGION=us-east-1
+echo $AWS_REGION
+
+# Create the shared s3 bucket
+aws s3 mb s3://$SHARED_S3_BUCKET --region $AWS_REGION
+
+# Copy ec2_standard.sh to s3
+aws s3 cp ec2_standard.sh s3://$SHARED_S3_BUCKET/ec2_standard.sh --region $AWS_REGION
+
+# Verify
+aws s3 ls s3://$SHARED_S3_BUCKET/ --region $AWS_REGION --recursive --human-readable --summarize
+
+
+# Use this script to launch EC2 instances!
+#!/bin/bash
+aws s3 cp s3://shared-s3-bucket-YourAccountNumberGoesHere/ec2_standard.sh /tmp/ec2_standard.sh --region us-east-1
+sudo chmod +x /tmp/ec2_standard.sh
+sudo /tmp/ec2_standard.sh

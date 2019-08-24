@@ -1,0 +1,2 @@
+# AWS API Actions - REF: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_Operations.html
+# AWS API Error Codes - REF: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html
