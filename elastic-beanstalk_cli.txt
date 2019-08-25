@@ -1,7 +1,8 @@
 # Install Elastic Beanstalk cli
 # REF: https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html?icmpid=docs_elasticbeanstalk_console#eb-cli3-install.scripts
 #pip install awsebcli --upgrade --user
-pip install awsebcli --upgrade
+#pip install awsebcli --upgrade
+sudo pip install awsebcli --upgrade --force-reinstall --ignore-installed PyYAML
 
 # Elastic Beanstalk needs at least a default VPC (in case you deleted it, this will recreate it):
 aws ec2 create-default-vpc
