@@ -24,6 +24,8 @@ aws s3 ls s3://$SHARED_S3_BUCKET/ --region $AWS_REGION --recursive --human-reada
 
 # Use this script to launch EC2 instances!
 #!/bin/bash
-aws s3 cp s3://shared-s3-bucket-YourAccountNumberGoesHere/ec2_standard.sh /tmp/ec2_standard.sh --region us-east-1
+AWS_REGION=us-east-1
+THIS_AWS_ACCOUNT_NUMBER=$(aws sts get-caller-identity --output text --query 'Account')
+aws s3 cp s3://shared-s3-bucket-$THIS_AWS_ACCOUNT_NUMBER/ec2_standard.sh /tmp/ec2_standard.sh --region $AWS_REGION
 sudo chmod +x /tmp/ec2_standard.sh
-sudo /tmp/ec2_standard.sh
+sudo /tmp/ec2_standard.sh >> /tmp/ec2_standard.log 2>&1
