@@ -49,6 +49,11 @@ sudo curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/y
 sudo yum install -y yarn
 #yarn -v
 
+# Java
+sudo yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel
+#java -version
+#javac -version
+
 # Add Python modules
 curl "https://bootstrap.pypa.io/get-pip.py" -o "/tmp/get-pip.py"
 sudo python /tmp/get-pip.py
