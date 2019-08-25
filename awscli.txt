@@ -29,6 +29,19 @@ aws sts get-caller-identity --output text --query 'Account'
 aws configure list
 
 
+# DynamoDB
+aws dynamodb help
+aws dynamodb describe-endpoints --region us-east-1
+aws dynamodb list-global-tables --region us-east-1
+aws dynamodb list-tables --region us-east-1
+aws dynamodb describe-limits --region us-east-1
+aws dynamodb list-backups --region us-east-1
+#aws dynamodb describe-global-table-settings --global-table-name blah
+# Output:
+#An error occurred (ValidationException) when calling the DescribeGlobalTableSettings operation: One or more parameter values were invalid: Failed to assume Service Linked Role ‘AWSServiceRoleForDynamoDBReplication’.
+aws dynamodbstreams list-streams --region us-east-1
+
+
 # Get a list of all regions:
 aws ssm get-parameters-by-path --path /aws/service/global-infrastructure/regions --query Parameters[].Name
 
