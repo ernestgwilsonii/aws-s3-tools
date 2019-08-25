@@ -17,6 +17,7 @@ aws iam list-policies
 aws iam list-roles
 aws s3 ls
 aws cloudtrail describe-trails
+aws ec2 describe-instances --region us-east-1
 
 # Get my AWS account number
 aws sts get-caller-identity --output text --query 'Account'

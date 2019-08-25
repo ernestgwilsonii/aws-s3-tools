@@ -22,6 +22,28 @@ aws s3 cp ec2_standard.sh s3://$SHARED_S3_BUCKET/ec2_standard.sh --region $AWS_R
 aws s3 ls s3://$SHARED_S3_BUCKET/ --region $AWS_REGION --recursive --human-readable --summarize
 
 
+# Create the Standard EC2 IAM Policy
+aws iam create-policy --policy-name iam_policy_EC2_Standard --policy-document file://iam_policy_EC2_Standard.json --description "Standard IAM Policy for EC2 instances"
+
+# Create the Standard EC2 IAM Role
+aws iam create-role --role-name iam_role_EC2_Standard --description "Standard IAM Role for EC2 instances" --assume-role-policy-document file://iam_role_EC2_Standard.json
+
+# Attach the Standard EC2 IAM Policy to the Standard EC2 IAM Role
+aws iam attach-role-policy --role-name iam_role_EC2_Standard --policy-arn arn:aws:iam::$THIS_AWS_ACCOUNT_NUMBER:policy/iam_policy_EC2_Standard
+
+# Create an EC2 Instance Profile
+# REF: https://aws.amazon.com/premiumsupport/knowledge-center/iam-role-not-in-list/
+aws iam create-instance-profile --instance-profile-name iam_instance-profile_EC2_Standard
+
+# Attach the EC2 IAM Role to the EC2 Instance Profile
+aws iam add-role-to-instance-profile --role-name iam_role_EC2_Standard --instance-profile-name iam_instance-profile_EC2_Standard
+
+# Verify
+aws iam get-policy --policy-arn arn:aws:iam::$THIS_AWS_ACCOUNT_NUMBER:policy/iam_policy_EC2_Standard
+aws iam get-role --role-name iam_role_EC2_Standard
+aws iam get-instance-profile  --instance-profile-name iam_instance-profile_EC2_Standard
+
+
 # Use this script to launch EC2 instances!
 #!/bin/bash
 AWS_REGION=us-east-1

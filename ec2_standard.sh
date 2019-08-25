@@ -30,6 +30,7 @@ sudo rm -f /opt/CloudWatchMonitoringScripts-1.2.1.zip
 # Add Python modules
 curl "https://bootstrap.pypa.io/get-pip.py" -o "/tmp/get-pip.py"
 sudo python /tmp/get-pip.py
-sudo pip install boto3 --upgrade
-sudo pip install awsebcli --upgrade --force-reinstall --ignore-installed PyYAML
+sudo pip install PyYAML --upgrade
+sudo pip install awsebcli --upgrade --force-reinstall
+sudo pip install boto3 --upgrade  --ignore-installed awsebcli
 sudo pip install pep8
